@@ -42,12 +42,12 @@ class Hello extends HTMLElement
 ```
 Nous devons ensuite déclarer le nouvel élément :
 ```js
-customElements.define('hello', Hello);
+customElements.define('app-hello', Hello);
 ```
 Puis l'utiliser dans une page HTML :
 ```html
 <header>
-  <hello />
+  <app-hello />
 </header>
 ```
 Tous les éléments HTML peuvent être utilisés. Ici, par exemple, nous utilisons un élément `style` pour créer une des styles internes. Cependant, nous pourrions tout aussi bien utiliser `link` pour importer une feuille de style externe, depuis un URL connu.
@@ -67,7 +67,7 @@ const style = document.createElement('style');
 Et maintenant :
 ```html
 <header>
-  <hello name="Arthur" />
+  <app-hello name="Arthur" />
 </header>
 ```
 
