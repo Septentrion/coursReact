@@ -39,7 +39,7 @@ Nous voudrions créer un composant pour afficher de manière uniforme tous les p
 
 Les propriétés seront ensuite considérées comme arguments de la fonction définissant le composant.
 ```js
-function Product ({ props })
+function Product ( props )
 {
   return (
     <article>

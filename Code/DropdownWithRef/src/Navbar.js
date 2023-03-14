@@ -9,14 +9,20 @@ const Navbar = () => {
    */
   const subListRef = useRef(null);
 
+  console.log(subListRef);
   /*
    * Lorsque la valeurde `dropdown` est modifiée, useEffect est exécutée
    * Ici on installe un écouteur d'événement sur le document
    */
    useEffect(() => {
      const handler = (event) => {
-       if (dropdown && ref.current && !ref.current.contains(event.target)) {
-         setDropdown(false);
+       if (
+         dropdown // Est-ce que la valeur est `true`
+         && subListRef.current // Existe-t-il un élément « actif » ?
+         && ! subListRef.current.contains(event.target) // Ai-je bien cliqué ailleurs que sur le bouton ?
+       ) {
+         setDropdown((d) => false);
+         console.log(dropdown);
        }
      };
      document.addEventListener("mousedown", handler);
@@ -25,12 +31,11 @@ const Navbar = () => {
       * useEffect étant exécuté à chaque modification,
       * il faut (éventuellment) — juste auparavant — annuler ce qui restait du cycle précédent.
       * Ici, par exemple, on ne souhaite pas accumuler les écouteurs.
-      * On désactive le précedent. 
+      * On désactive le précedent.
       */
      return () => {
        document.removeEventListener("mousedown", handler);
      };
-
    }, [dropdown]);
 
   return (
@@ -38,7 +43,7 @@ const Navbar = () => {
       <ul>
         <li>Home</li>
         <li>About</li>
-        <li ref={ref}>
+        <li ref={subListRef}>
           <button onClick={() => setDropdown((prev) => !prev)}>
             Services <span>&#8595;</span>
           </button>
