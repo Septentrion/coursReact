@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Utiliser un état pour avoir accès à des données persistantes est très pratique, mais cela se révèle vite limité qi l'application a un grand nombre de composants sous forme d'un arbre riche.
+Utiliser un état pour avoir accès à des données persistantes est très pratique, mais cela se révèle vite limité si l'application a un grand nombre de composants sous forme d'un arbre riche.
 
 Noous avons vu que la variable détat doit être défini sur un nœud commun à tous les composants qui ont besoin d'accéder à cette variable. Rapidement, nous sentons que la solution optimale serait de définir un état global à  la racine de l'application, de manière à parer à toutes les éventualités.
 
@@ -22,7 +22,7 @@ Admettons que nous voulions gérer une liste de tâches.
 
 ### Création du dépôt de données
 
-Premièrement, nous allons créer les « _contexte_ » :
+Premièrement, nous allons créer les « _contextes_ » :
 
 ```js
 import { createContext } from 'react';
@@ -42,7 +42,7 @@ export { TodosContext };
 
 Nous avons commencé par importer l'API `createContext` de `React` en lui passant une valeur de contexte par défaut comme argument. Cette API renvoie un objet que nous avons assigné à `TodosContext`. Cet objet expose un `Provider` qui permet aux composants consommateurs d'avoir accès aux données du contexte. Tout composant descendant de ce fournisseur aura accès aux données de contexte.
 
-La propriété des enfants utilisée dans le composant `TodosProvider` sera le JSX/composants que nous passons entre les balises `<TodosProvider></TodosProvider>.` Nous reviendrons en détail sur la propriété des enfants plus tard dans la série. Tous les composants qui seront des descendants du `<TodosProvider></TodosProvider> `auront accès à ce que nous assignons à l'attribut `value`.
+La propriété `children` utilisée dans le composant `TodosProvider` contiendra les composants JSX que nous passerons entre les balises `<TodosProvider></TodosProvider>.` Nous reviendrons en détail sur cette propriété plus tard dans la série. Tous les composants qui seront des descendants du `<TodosProvider></TodosProvider> `auront accès à ce que nous assignons à l'attribut `value`.
 
 Chaque fois que la valeur prop changera, tous les composants qui consomment les données seront mis à jour. Cela ne pose pas de problème si nous transmettons une valeur primitive telle qu'une chaîne de caractères, un nombre ou un booléen. Cependant, la transmission d'objets ou de tableaux peut entraîner des rendus inutiles dans l'arbre, car lorsqu'une partie de cet objet est modifiée, tous les composants consommateurs effectuent un nouveau rendu, même si ces modifications ne les affectent pas. C'est pourquoi nous devons suivre rigoureusement les étapes mentionnées ci-dessus.
 
@@ -97,9 +97,7 @@ Au passage,nous puvons optimiser un peu le code :
 1. Dans le `Provider`, nous exportons directement une fonction se référant à `useContext`
 ```js
 import { createContext, useContext } from 'react';
-
 const TodosContext = createContext(null);
-
 export const TodosProvider = ({ children }) => {
   return (
     <TodosContext.Provider value={'todos data'}>
@@ -107,16 +105,13 @@ export const TodosProvider = ({ children }) => {
     </TodosContext.Provider>
   );
 };
-
 export const useTodosContext = () => useContext(TodosContext);
 ```
 
 2. Dans le composant enfant :
 ```js
 import { useTodosContext } from '@/context/TodosContext';
-
 const context = useTodosContext();
-
 /* ... */
 ```
 
