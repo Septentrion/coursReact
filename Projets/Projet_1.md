@@ -3,7 +3,7 @@
 On souhaite faire une petite application qui interroge l'API publique de l'état piscicole des rivières. Cette API peut être trouvée à cette adresse :
 
 - [API Poisson](https://hubeau.eaufrance.fr/page/api-poisson)
-- [Documentation(https://api.gouv.fr/documentation/api_hubeau_poissons)]
+- [Documentation](https://api.gouv.fr/documentation/api_hubeau_poissons)]
 
 Nous voulons donner la possibilité aux utilisateurs de chercher les endroits où ont éé repérésdes espèces de poissons. L'API nous permet de le faire grâce au paramètre `nom_commun_taxon`.
 
